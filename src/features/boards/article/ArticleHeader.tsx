@@ -12,17 +12,15 @@ import { useDeleteArticleMutation } from "../hooks/mutation";
 interface ArticleHeaderProps {
   article: Article;
   currentUserId?: number;
-  userImage?: string;
 }
 
 export default function ArticleHeader({
-  userImage,
   currentUserId,
   article,
 }: ArticleHeaderProps) {
   const router = useRouter();
   const { id } = router.query;
-  const { deleteArticleMutation } = useDeleteArticleMutation(Number(id));
+  const { deleteArticleMutation } = useDeleteArticleMutation();
 
   const alertDeleteArticle = () => {
     overlay.open(
@@ -78,7 +76,7 @@ export default function ArticleHeader({
         )}
       </div>
       <div className="flex h-9 items-center gap-2">
-        <Avatar size="small" source={userImage} />
+        <Avatar size="small" />
         <div>
           <span className="text-xs-m text-text-primary tablet:text-md-m">
             {article?.writer.nickname}

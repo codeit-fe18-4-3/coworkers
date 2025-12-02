@@ -1,5 +1,6 @@
 import Avatar from "@/components/avatar";
 import Icon from "@/components/icon";
+import { useUserQuery } from "@/features/user/query";
 import clsx from "clsx";
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 
@@ -7,7 +8,6 @@ interface CommentPostProps {
   onSubmit?: (content: string, onSuccess?: () => void) => void;
   submitOnSuccess: boolean;
   isPending: boolean;
-  profileImage?: string;
   className?: string;
   horizontalPadding?: number;
 }
@@ -16,12 +16,13 @@ export default function CommentPost({
   onSubmit,
   submitOnSuccess,
   isPending,
-  profileImage,
   className,
   horizontalPadding,
 }: CommentPostProps) {
   const [content, setContent] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const { user } = useUserQuery();
+  const profileImage = user?.image;
 
   const resizeTextarea = (
     textarea: HTMLTextAreaElement | null,

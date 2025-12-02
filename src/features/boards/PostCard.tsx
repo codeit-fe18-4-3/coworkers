@@ -22,9 +22,9 @@ export default function PostCard({ isPopular, article }: PostCardProps) {
     <div
       onClick={handleClick}
       className={clsx(
-        "flex w-[340px] cursor-pointer flex-col gap-3 rounded-[20px] border border-border-primary bg-background-primary tablet:h-44",
+        "flex w-full cursor-pointer flex-col gap-3 rounded-[20px] border border-border-primary bg-background-primary tablet:h-44",
         isPopular
-          ? "h-[177px] justify-between p-5 tablet:w-[304px] desktop:h-[206px] desktop:w-full desktop:max-w-[350px] desktop:px-5 desktop:py-6"
+          ? "h-[177px] justify-between p-5 tablet:max-w-none desktop:h-[206px] desktop:w-full desktop:px-5 desktop:py-6"
           : "h-[140px] justify-around p-4 tablet:h-[156px] tablet:w-[620px] tablet:px-6 tablet:py-5 desktop:w-full desktop:max-w-[529px]"
       )}
     >
@@ -37,13 +37,20 @@ export default function PostCard({ isPopular, article }: PostCardProps) {
       <div className="flex flex-col gap-2">
         <div
           className={clsx(
-            "flex h-[67px] w-[308px] justify-between tablet:h-[88px]",
+            "flex w-[308px] justify-between",
             isPopular
-              ? "tablet:w-[264px] desktop:w-full desktop:max-w-[310px]"
-              : "tablet:w-[572px] desktop:w-full desktop:max-w-[481px]"
+              ? "tablet:h-[67px] tablet:w-[264px] desktop:w-full desktop:max-w-[310px]"
+              : "tablet:h-[88px] tablet:w-[572px] desktop:w-full desktop:max-w-[481px]"
           )}
         >
-          <div className="flex flex-col gap-2">
+          <div
+            className={clsx(
+              "flex flex-col gap-2",
+              isPopular
+                ? "w-[244px] tablet:w-52 desktop:w-[242px]"
+                : "w-[228px] tablet:w-[360px]"
+            )}
+          >
             <h3 className="line-clamp-1 text-lg-b tablet:text-2lg-b">
               {title}
             </h3>
@@ -51,7 +58,7 @@ export default function PostCard({ isPopular, article }: PostCardProps) {
           {image && (
             <div
               className={clsx(
-                "relative",
+                "relative shrink-0",
                 isPopular
                   ? "h-12 w-12 desktop:h-[60px] desktop:w-[60px]"
                   : "h-20 w-20 tablet:w-[88px] desktop:h-[88px]"

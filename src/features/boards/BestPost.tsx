@@ -45,7 +45,9 @@ export default function BestPost() {
             <>
               <div className="flex gap-3 desktop:w-full desktop:max-w-[1074px]">
                 {visiblePage?.map((post) => (
-                  <PostCard key={post.id} article={post} isPopular={true} />
+                  <div key={post.id} className="min-w-0 flex-1">
+                    <PostCard article={post} isPopular={true} />
+                  </div>
                 ))}
               </div>
               <PageController

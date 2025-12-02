@@ -201,11 +201,7 @@ export default serverSideComponentWithAuth<PageProps>(({ articleId }) => {
         <div className="mx-auto w-[300px] pt-10 pb-10 tablet:w-[540px] tablet:pt-[54px] tablet:pb-[54px] desktop:mx-[60px] desktop:w-auto desktop:max-w-[780px]">
           {article && (
             <>
-              <ArticleHeader
-                currentUserId={userId}
-                article={article}
-                userImage={userImage}
-              />
+              <ArticleHeader currentUserId={userId} article={article} />
               <ArticleContent article={article} />
               <ArticleLikeButton
                 likeCount={article?.likeCount}

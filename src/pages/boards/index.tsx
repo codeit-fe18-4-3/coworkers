@@ -68,7 +68,7 @@ export default function BoardsPage() {
 
   return (
     <>
-      <div className="desktop:max-w-7xl desktop:pl-24">
+      <div className="desktop:max-w-7xl desktop:pr-9 desktop:pl-24">
         <section className="border-t border-border-primary tablet:border-t-0">
           <div className="mx-auto mt-[25px] mb-5 w-[343px] tablet:mt-[77px] tablet:mb-[29px] tablet:w-[620px] desktop:mt-[87px] desktop:w-full desktop:max-w-[1120px]">
             <SearchBar value={query} onChange={setQuery} />

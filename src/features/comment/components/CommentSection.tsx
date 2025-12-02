@@ -4,6 +4,7 @@ import { useTaskCommentMutation } from "../query/use-comment-mutation";
 import { CommentModel } from "./CommentItem";
 import CommentList from "./CommentList";
 import CommentPost from "./CommentPost";
+import { useUserQuery } from "@/features/user/query";
 
 interface CommentSectionProps {
   comments: CommentModel[];
