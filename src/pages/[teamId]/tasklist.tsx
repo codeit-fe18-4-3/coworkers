@@ -149,7 +149,7 @@ export default serverSideComponentWithAuth<PageProps>(
                 opacity: 0,
                 transition: { duration: 0.2, ease: "easeIn" },
               }}
-              className="fixed top-[52px] right-0 h-[calc(100dvh-52px)] overflow-y-auto bg-background-primary shadow-2xl tablet:top-0 tablet:h-full"
+              className="fixed top-[52px] right-0 z-(--z-overlay-panel) h-[calc(100dvh-52px)] overflow-y-auto bg-background-primary shadow-2xl tablet:top-0 tablet:h-full"
               style={{ width: isMobile ? "100%" : panelWidth }}
             >
               {isDesktop && (

@@ -5,6 +5,7 @@
   /* custom tokens */
   --font-sans: "Pretendard", ui-sans-serif, system-ui, sans-serif;
   --z-overlay: 9999;
+  --z-overlay-panel: 9900;
   --z-popover: 999;
   --shadow-card: 0px 15px 50px -12px rgba(0, 0, 0, 0.05);
 
