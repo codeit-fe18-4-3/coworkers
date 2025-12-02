@@ -7,7 +7,6 @@ import { CommentSection } from "@/features/comment/components";
 import { useTaskCommentsQuery } from "@/features/comment/query/use-comment-query";
 import { useResponsive } from "@/hooks/use-responsive";
 import clsx from "clsx";
-import { useToggleTodo } from "../../tasklist/hooks/useToggleTodo";
 import { FREQUENCY_LABEL } from "../constants/task-frequency";
 import { useTaskMutation, useTaskQuery } from "../query";
 import { openTaskEditSheet } from "./TaskEditSheet";
@@ -21,10 +20,12 @@ interface Props {
 
 export function TaskDetail({ groupId, taskListId, taskId, close }: Props) {
   const { isTablet, isDesktop } = useResponsive();
-  const toggleTodo = useToggleTodo();
 
-  const { deleteMutation } = useTaskMutation({ groupId, taskListId });
-  const { task, isFetching } = useTaskQuery({
+  const { patchMutation, deleteMutation } = useTaskMutation({
+    groupId,
+    taskListId,
+  });
+  const { task } = useTaskQuery({
     groupId,
     taskListId,
     taskId,
@@ -33,12 +34,11 @@ export function TaskDetail({ groupId, taskListId, taskId, close }: Props) {
 
   const { taskComments } = useTaskCommentsQuery({ taskId, enabled: !!taskId });
 
-  if (!task || isFetching) return null;
+  if (!task) return null;
 
-  const handleToggleDone = () => {
-    toggleTodo.mutate({
-      taskId: taskListId,
-      todoId: taskId,
+  const handleEditTaskDone = () => {
+    patchMutation.mutate({
+      taskId: taskId,
       done: !task.doneAt,
     });
   };
@@ -144,7 +144,7 @@ export function TaskDetail({ groupId, taskListId, taskId, close }: Props) {
               </div>
 
               <Button
-                iconName="checkCompact"
+                iconName={task.doneAt ? "checkPrimary" : "checkCompact"}
                 iconCustomColor="transparent"
                 variant={task.doneAt ? "outlinedPrimary" : "primary"}
                 title={task.doneAt ? "완료 취소하기" : "완료하기"}
@@ -152,7 +152,7 @@ export function TaskDetail({ groupId, taskListId, taskId, close }: Props) {
                 isFullWidth={false}
                 rounded
                 className="fixed right-5 bottom-[30px] tablet:relative tablet:right-0 tablet:bottom-0"
-                onClick={handleToggleDone}
+                onClick={handleEditTaskDone}
               />
             </div>
           </div>
