@@ -51,13 +51,13 @@ export default serverSideComponentWithAuth<PageProps>(
     const [isPanelOpen, setIsPanelOpen] = useState(false);
     const [panelWidth, setPanelWidth] = useState(520);
 
-    const { group, isFetching } = useGroupQuery({ groupId });
+    const { group } = useGroupQuery({ groupId });
     const { taskList: selectedTaskList } = useTaskListQuery({
       groupId,
       taskListId: selectedTaskListId,
     });
 
-    if (!group || !selectedTaskList || isFetching) {
+    if (!group || !selectedTaskList) {
       return <div>Loading...</div>;
     }
 
