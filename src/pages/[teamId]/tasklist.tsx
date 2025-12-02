@@ -64,6 +64,7 @@ export default serverSideComponentWithAuth<PageProps>(
     const handleCloseDetailPanel = () => {
       setIsPanelOpen(false);
       setFold(false);
+      setSelectedTaskId(undefined);
     };
 
     const handleTaskSelect = (task: Task) => {
@@ -125,7 +126,7 @@ export default serverSideComponentWithAuth<PageProps>(
             />
             <TasksListContent
               groupId={groupId}
-              taskListId={taskListId}
+              taskListId={selectedTaskListId}
               selectedDate={selectedDate}
               selectedTaskList={selectedTaskList}
               selectedTaskId={selectedTaskId}
