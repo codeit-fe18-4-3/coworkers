@@ -1,3 +1,5 @@
+import { groupsQueryKey } from "@/features/group/query/query-key";
+import { taskListQueryKey } from "@/features/tasklist/query/query-key";
 import {
   MutationOptions,
   useMutation,
@@ -32,6 +34,12 @@ export function useTaskMutation({
   const handleMutationSuccess = () => {
     queryClient.invalidateQueries({
       queryKey: tasksQueryKey({ groupId, taskListId }),
+    });
+    queryClient.invalidateQueries({
+      queryKey: taskListQueryKey({ groupId, taskListId }),
+    });
+    queryClient.invalidateQueries({
+      queryKey: groupsQueryKey({ groupId }),
     });
   };
 

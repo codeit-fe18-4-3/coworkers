@@ -51,19 +51,20 @@ export default serverSideComponentWithAuth<PageProps>(
     const [isPanelOpen, setIsPanelOpen] = useState(false);
     const [panelWidth, setPanelWidth] = useState(520);
 
-    const { group, isFetching } = useGroupQuery({ groupId });
+    const { group } = useGroupQuery({ groupId });
     const { taskList: selectedTaskList } = useTaskListQuery({
       groupId,
       taskListId: selectedTaskListId,
     });
 
-    if (!group || !selectedTaskList || isFetching) {
+    if (!group || !selectedTaskList) {
       return <div>Loading...</div>;
     }
 
     const handleCloseDetailPanel = () => {
       setIsPanelOpen(false);
       setFold(false);
+      setSelectedTaskId(undefined);
     };
 
     const handleTaskSelect = (task: Task) => {
@@ -125,7 +126,7 @@ export default serverSideComponentWithAuth<PageProps>(
             />
             <TasksListContent
               groupId={groupId}
-              taskListId={taskListId}
+              taskListId={selectedTaskListId}
               selectedDate={selectedDate}
               selectedTaskList={selectedTaskList}
               selectedTaskId={selectedTaskId}
@@ -149,7 +150,7 @@ export default serverSideComponentWithAuth<PageProps>(
                 opacity: 0,
                 transition: { duration: 0.2, ease: "easeIn" },
               }}
-              className="fixed top-[52px] right-0 h-[calc(100dvh-52px)] overflow-y-auto bg-background-primary shadow-2xl tablet:top-0 tablet:h-full"
+              className="fixed top-[52px] right-0 z-(--z-overlay-panel) h-[calc(100dvh-52px)] overflow-y-auto bg-background-primary shadow-2xl tablet:top-0 tablet:h-full"
               style={{ width: isMobile ? "100%" : panelWidth }}
             >
               {isDesktop && (

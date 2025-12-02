@@ -21,9 +21,7 @@ export default function DoneBadge({ current, total, size }: Props) {
   const isDone = safeTotal > 0 && safeCurrent === safeTotal;
 
   return (
-    <div
-      className={`${typography[size]} rounded-full bg-background-primary px-2 py-1`}
-    >
+    <div className={`${typography[size]} rounded-full px-2 py-1`}>
       <div className="flex items-center gap-1">
         {isDone ? (
           <Icon name="progressDone" size={size} />

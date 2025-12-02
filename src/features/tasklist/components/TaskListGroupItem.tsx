@@ -18,9 +18,9 @@ export default function TaskListGroupItem({ taskList, onClick }: Props) {
   return (
     <div
       className={clsx(
-        "flex items-center justify-start bg-background-primary",
+        "flex items-center justify-start",
         isDesktop &&
-          "h-[54px] cursor-pointer rounded-xl border border-border-primary pr-3 pl-5"
+          "h-[54px] cursor-pointer rounded-xl border border-border-primary bg-background-primary pr-3 pl-5"
       )}
       onClick={onClick}
     >

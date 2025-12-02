@@ -5,7 +5,6 @@ import TasksListItem from "@/features/task/components/TasksListItem";
 import { useTaskMutation, useTasksQuery } from "@/features/task/query";
 import { Task, TaskList } from "@/types/task";
 import DateSelector from "../../tasklist/components/DateSelector";
-import { useToggleTodo } from "../../tasklist/hooks/useToggleTodo";
 import { openTaskCreateSheet } from "./TaskCreateSheet";
 import { openTaskEditSheet } from "./TaskEditSheet";
 
@@ -28,21 +27,21 @@ export default function TasksListContent({
   onDateSelect,
   onSelect,
 }: Props) {
-  const toggleTodo = useToggleTodo();
-
-  const { deleteMutation } = useTaskMutation({ groupId, taskListId });
-  const { tasks, isFetching } = useTasksQuery({
+  const { patchMutation, deleteMutation } = useTaskMutation({
+    groupId,
+    taskListId,
+  });
+  const { tasks } = useTasksQuery({
     groupId: groupId,
     taskListId: taskListId,
     date: selectedDate.toISOString(),
     enabled: !!taskListId,
   });
 
-  const handleTaskCheckboxClick = (task: Task) => {
-    if (!taskListId) return;
-    toggleTodo.mutate({
-      taskId: taskListId,
-      todoId: task.id,
+  const handleCheckboxClick = (task: Task) => {
+    if (!groupId || !taskListId) return;
+    patchMutation.mutate({
+      taskId: task.id,
       done: !task.doneAt,
     });
   };
@@ -81,18 +80,14 @@ export default function TasksListContent({
 
       <DateSelector selectedDate={selectedDate} onSelect={onDateSelect} />
 
-      {isFetching ? (
-        <div>Loading...</div>
-      ) : (
-        <TasksList
-          tasks={tasks || []}
-          selectedTaskId={selectedTaskId}
-          onSelect={onSelect}
-          onCheckboxClick={handleTaskCheckboxClick}
-          onEdit={handleEditTask}
-          onDelete={handleDeleteTask}
-        />
-      )}
+      <TasksList
+        tasks={tasks || []}
+        selectedTaskId={selectedTaskId}
+        onSelect={onSelect}
+        onCheckboxClick={handleCheckboxClick}
+        onEdit={handleEditTask}
+        onDelete={handleDeleteTask}
+      />
 
       <div className="fixed right-4 bottom-10 desktop:absolute desktop:top-[260px] desktop:-right-7">
         <FloatingButton
@@ -129,7 +124,7 @@ function TasksList({
             commentCount={task.commentCount}
             createdAt={task.date}
             frequency={task.frequency}
-            isSelected={!!selectedTaskId}
+            isSelected={selectedTaskId === task.id}
             isDone={!!task.doneAt}
             onClick={() => onSelect(task)}
             onCheckboxClick={() => onCheckboxClick(task)}

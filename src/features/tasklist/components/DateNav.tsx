@@ -40,7 +40,10 @@ export default function DateNav({
         </button>
 
         <button
-          onClick={onCalendarOpen}
+          onClick={(e) => {
+            e.stopPropagation();
+            onCalendarOpen?.();
+          }}
           aria-label="날짜 선택창 열기"
           className="flex h-6 w-6 cursor-pointer items-center justify-center rounded-full bg-background-secondary hover:bg-gray-300"
         >

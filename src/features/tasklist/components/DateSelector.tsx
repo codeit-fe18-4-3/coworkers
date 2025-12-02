@@ -1,4 +1,5 @@
 import { DatePicker } from "@/features/date-picker";
+import { useBackdropClick } from "@/hooks/use-backdrop-click";
 import { useState } from "react";
 import DateNav from "./DateNav";
 import DateTabs from "./DateTabs";
@@ -12,7 +13,10 @@ export default function DateSelector({
   selectedDate,
   onSelect,
 }: DateSelectorProps) {
-  const [isCalendarOpen, setisCalendarOpen] = useState(false);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const targetRef = useBackdropClick<HTMLDivElement>({
+    callback: () => setIsCalendarOpen(false),
+  });
 
   const handlePrevMonth = () => {
     const date = new Date(selectedDate);
@@ -21,7 +25,6 @@ export default function DateSelector({
 
     onSelect(date);
   };
-
   const handleNextMonth = () => {
     const date = new Date(selectedDate);
     date.setMonth(date.getMonth() + 1);
@@ -36,18 +39,21 @@ export default function DateSelector({
         selectedDate={selectedDate}
         onPrev={handlePrevMonth}
         onNext={handleNextMonth}
-        onCalendarOpen={() => setisCalendarOpen((prev) => !prev)}
+        onCalendarOpen={() => setIsCalendarOpen((prev) => !prev)}
       />
 
       {isCalendarOpen && (
-        <div className="absolute top-8 right-0 z-(--z-popover) rounded-xl border border-border-primary bg-background-primary p-2 shadow-lg">
+        <div
+          ref={targetRef}
+          className="absolute top-8 right-0 z-(--z-popover) rounded-xl border border-border-primary bg-background-primary p-2 shadow-lg"
+        >
           <DatePicker
             selected={selectedDate}
             onSelect={(date) => {
               if (date) {
                 onSelect(date);
               }
-              setisCalendarOpen(false);
+              setIsCalendarOpen(false);
             }}
           />
         </div>
