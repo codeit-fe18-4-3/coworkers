@@ -58,7 +58,7 @@ function DoneTask({ task }: { task: TaskHistory }) {
         </div>
         <div className="h-2 w-px border border-l-text-secondary" />
         <div className="flex items-center gap-2">
-          <Icon name="repeat" size="large" color="var(--color-icon-primary)" />
+          <Icon name="repeat" size="large" color="transparent" />
           <span className="text-xs-r text-text-default">
             {FREQUENCY_LABEL[task.frequency]}
           </span>
