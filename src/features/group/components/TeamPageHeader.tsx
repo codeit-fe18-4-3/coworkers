@@ -69,7 +69,7 @@ function SettingsButton({ group }: { group: Group }) {
 
 function calculateProgress(done: number, total: number) {
   if (total === 0) return 0;
-  return done / total;
+  return Math.floor((done / total) * 100) / 100;
 }
 
 function TasksReport({
