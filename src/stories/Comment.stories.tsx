@@ -35,7 +35,6 @@ export const Post: StoryObj<typeof CommentPost> = {
     <div className="w-[600px]">
       <CommentPost
         horizontalPadding={20}
-        profileImage=""
         onSubmit={(text) => alert("제출됨: " + text)}
         isPending={false}
         submitOnSuccess={false}

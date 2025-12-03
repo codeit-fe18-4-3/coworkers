@@ -67,7 +67,6 @@ export default serverSideComponentWithAuth<PageProps>(({ articleId }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { user } = useUserQuery();
-  const userImage = user?.image;
   const userId = user?.id;
 
   const { data: article } = useQuery({
