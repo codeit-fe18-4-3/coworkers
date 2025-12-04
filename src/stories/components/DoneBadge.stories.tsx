@@ -21,7 +21,7 @@ export const DoneBadge: Story = {
   },
   render: () => {
     return (
-      <div className="flex w-xl items-center justify-center gap-4 bg-gray-400 p-4">
+      <div className="flex w-xl items-center justify-center gap-4 bg-gray-200 p-4">
         <DoneBadgeComponent current={0} total={5} size="large" />
         <DoneBadgeComponent current={3} total={5} size="large" />
         <DoneBadgeComponent current={5} total={5} size="large" />
