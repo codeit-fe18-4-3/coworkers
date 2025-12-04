@@ -1,10 +1,14 @@
 import InvisibleIcon from "@/assets/icons/ic-invisible.svg";
 import VisibleIcon from "@/assets/icons/ic-visible.svg";
 import { Button } from "@/components/button";
-import { Input as InputComponent } from "@/components/input";
+import {
+  InputBox as InputBoxComponent,
+  Input as InputComponent,
+} from "@/components/input";
 import TextField from "@/components/input/TextField";
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import type { ComponentPropsWithoutRef } from "react";
+import { useState } from "react";
 
 const trailingVariants = {
   none: null,
@@ -84,7 +88,7 @@ function mapVariants({
   };
 }
 
-export const Default: Story = {
+export const Input: Story = {
   render: (args) => {
     const size = args.size ?? "large";
     const widthClass = size === "small" ? "w-[300px]" : "w-[460px]";
@@ -98,3 +102,24 @@ export const Default: Story = {
     );
   },
 };
+
+export function InputBox() {
+  const [value, setValue] = useState("제어컴포넌트");
+
+  return (
+    <div className="flex w-[300px] flex-col gap-4 text-text-primary placeholder:text-text-default">
+      <InputBoxComponent
+        size="large"
+        placeholder="내용을 입력하세요"
+        minHeight={100}
+      />
+      <InputBoxComponent
+        size="small"
+        height={200}
+        value={value}
+        placeholder="내용을 입력하세요"
+        onChange={(e) => setValue(e.target.value)}
+      />
+    </div>
+  );
+}
